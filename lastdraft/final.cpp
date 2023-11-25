@@ -16,8 +16,8 @@ void create()
 
     cout << "Enter the ID" << endl;
     cin >> ID;
-    string fname;
-    fname = to_string(ID);
+    string fname= "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\";
+    fname += "0"+to_string(ID);
     fname += ".csv";
     fout.open(fname, ios::out | ios::app);
     // Read the input
@@ -176,7 +176,7 @@ public:
         {
             for (const auto &file : node->keys)
             {
-                cout << file.file_name << endl;
+                cout << file.file_name <<" "<< file.size<< " " <<file.created_at <<endl;
             }
 
             if (!node->leaf)
@@ -187,7 +187,41 @@ public:
                 }
             }
         }
-    };
+    }
+    bool searchFile(const string &file_name, BTreeNode *node)
+    {
+        if (node != nullptr)
+        {
+            // Search in the current node
+            for (const auto &file : node->keys)
+            {
+                if (file.file_name == file_name)
+                {
+                    cout << "File found: " << file_name << endl;
+                    return true;
+                }
+            }
+
+            // Recursively search in the children
+            if (!node->leaf)
+            {
+                for (auto child : node->children)
+                {
+                    if (searchFile(file_name, child))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bool searchFile(const string &file_name)
+    {
+        return searchFile(file_name, root);
+    }
 };
 
 int main()
@@ -207,12 +241,13 @@ int main()
         cout << "---------------------------------" << endl;
         cout << "1.Add a new scholarship \n2.Delete a Scholarship \n3.Modify \n4.Find a scholarship \n5.Sort scholarships \n6.List Files \n7.Exit\n";
         cout << "---------------------------------" << endl;
-        cout << "\nEnter The Option Number: "<<endl;
+        cout << "\nEnter The Option Number: " << endl;
         cin >> optionNumber;
         cout << endl;
 
         if (optionNumber == 1)
         {
+            create();
         }
         else if (optionNumber == 2)
         {
@@ -222,14 +257,26 @@ int main()
         }
         else if (optionNumber == 4)
         {
-            cout << "File names in B-tree:" << endl;
-            btree.displayFileNames(btree.root);
+            string search_file_name;
+            cout << "Enter the ID of Scholarship to search: ";
+            cin >> search_file_name;
+
+            if (btree.searchFile(search_file_name))
+            {
+                cout << "found!" << endl;
+            }
+            else
+            {
+                cout << "Does not exist" << endl;
+            }
         }
         else if (optionNumber == 5)
         {
         }
         else if (optionNumber == 6)
         {
+            cout << "File names in B-tree:" << endl;
+            btree.displayFileNames(btree.root);
         }
         else if (optionNumber == 7)
         {

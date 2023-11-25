@@ -1,9 +1,2 @@
 ID,Province,Category,Field,Amount,Website
-010,KPK,Grant,Biology,13121,https://kpk.gov.pk
-010,Punjab,Need-Based,Biology,14147,https://kpk.gov.pk
-010,Balochistan,Need-Based,Physics,12333,https://sindh.gov.pk
-010,Balochistan,Merit,Biology,14787,https://balochistan.gov.pk
-010,Punjab,Grant,Biology,13500,https://kpk.gov.pk
-010,Punjab,Merit,Biology,10738,https://kpk.gov.pk
-010,KPK,Grant,Physics,14762,https://punjab.gov.pk
-010,Balochistan,Grant,Biology,12644,https://kpk.gov.pk
+010,Punjab,Grant,Physics,12845,https://sindh.gov.pk

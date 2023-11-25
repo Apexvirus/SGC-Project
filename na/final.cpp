@@ -192,7 +192,7 @@ public:
 
 int main()
 {
-    BTree btree(2);
+    BTree btree(8);
 
     // Populating B-tree from a Windows folder
     btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\test");
@@ -205,7 +205,7 @@ int main()
     {
         cout << "\n\n````````` The Main Menu `````````" << endl;
         cout << "---------------------------------" << endl;
-        cout << "1.Create a Text File \n2.Delete a Text File \n3.Modify a Text File \n4.View the Content of a Text File \n5.Create a Copy of a Text File \n6.List Files \n7.Exit\n";
+        cout << "1.Add a new scholarship \n2.Delete a Scholarship \n3.Modify \n4.Find a scholarship \n5.Sort scholarships \n6.List Files \n7.Exit\n";
         cout << "---------------------------------" << endl;
         cout << "\nEnter The Option Number: "<<endl;
         cin >> optionNumber;

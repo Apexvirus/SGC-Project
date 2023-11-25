@@ -1,7 +1,2 @@
 ID,Province,Category,Field,Amount,Website
-008,Balochistan,Merit,Biology,13318,https://punjab.gov.pk
-008,KPK,Need-Based,Biology,13512,https://punjab.gov.pk
-008,Balochistan,Grant,Biology,10822,https://punjab.gov.pk
-008,Sindh,Need-Based,Biology,14318,https://balochistan.gov.pk
-008,Balochistan,Grant,Physics,10457,https://balochistan.gov.pk
-008,KPK,Grant,Physics,14084,https://sindh.gov.pk
+008,Punjab,Grant,Biology,11655,https://punjab.gov.pk

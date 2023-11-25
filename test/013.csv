@@ -1,12 +1,2 @@
 ID,Province,Category,Field,Amount,Website
-013,Balochistan,Grant,Physics,12521,https://balochistan.gov.pk
-013,Sindh,Merit,Physics,14345,https://punjab.gov.pk
-013,Sindh,Grant,Physics,13727,https://balochistan.gov.pk
-013,KPK,Need-Based,Biology,10321,https://punjab.gov.pk
-013,Sindh,Merit,Physics,9353,https://sindh.gov.pk
-013,Sindh,Merit,Physics,13597,https://kpk.gov.pk
-013,Balochistan,Need-Based,Biology,12791,https://balochistan.gov.pk
-013,Punjab,Grant,Physics,8991,https://kpk.gov.pk
-013,KPK,Grant,Biology,8584,https://balochistan.gov.pk
-013,KPK,Grant,Physics,11694,https://kpk.gov.pk
-013,KPK,Merit,Biology,12802,https://punjab.gov.pk
+013,Punjab,Need-Based,Physics,11357,https://punjab.gov.pk

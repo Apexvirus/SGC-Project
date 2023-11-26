@@ -5,6 +5,7 @@
 #include <vector>
 #include <windows.h>
 #include <iomanip>
+#include <chrono>
 
 using namespace std;
 void create()
@@ -275,8 +276,16 @@ int main()
         }
         else if (optionNumber == 6)
         {
+            auto start = chrono::high_resolution_clock::now();
+
             cout << "File names in B-tree:" << endl;
             btree.displayFileNames(btree.root);
+
+            auto stop = chrono::high_resolution_clock::now();
+
+            auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+
+            cout << "Time taken to display: " << duration.count() << " microseconds." << endl;
         }
         else if (optionNumber == 7)
         {

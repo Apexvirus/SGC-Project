@@ -15,7 +15,7 @@ struct Node
     Node(string n) : name(n) {}
 };
 
-bool traverse(Node *current, const string &destination, vector<string> &path)
+bool 5traverse(Node *current, const string &destination, vector<string> &path)
 {
     if (current->name == destination)
     {

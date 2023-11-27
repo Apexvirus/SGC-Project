@@ -164,7 +164,7 @@ public:
             oss << setw(3) << setfill('0') << fileNumber++;
             string fileName = oss.str() + ".csv";
 
-            FileNode newFile(fileName, 0, 0); // Size and created_at are not specified in this example
+            FileNode newFile(fileName, sizeof(fileName), 0); // Size and created_at are not specified in this example
             insert(newFile);
 
         } while (FindNextFile(hFind, &findFileData) != 0);
@@ -177,7 +177,7 @@ public:
         {
             for (const auto &file : node->keys)
             {
-                cout << file.file_name <<" "<< file.size<< " " <<file.created_at <<endl;
+                cout << file.file_name <<" "<< file.size<<" size"<<endl;
             }
 
             if (!node->leaf)
@@ -232,9 +232,7 @@ int main()
     // Populating B-tree from a Windows folder
     btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\test");
 
-    // Displaying file names
-
-    int optionNumber;
+    string optionNumber;
     cout << "~~  B-tree File System (Btrfs) Simulation ~~" << endl;
     while (1)
     {
@@ -246,18 +244,19 @@ int main()
         cin >> optionNumber;
         cout << endl;
 
-        if (optionNumber == 1)
+        if (optionNumber == "1")
         {
             create();
         }
-        else if (optionNumber == 2)
+        else if (optionNumber == "2")
         {
         }
-        else if (optionNumber == 3)
+        else if (optionNumber == "3")
         {
         }
-        else if (optionNumber == 4)
+        else if (optionNumber == "4")
         {
+            auto start = chrono::high_resolution_clock::now();
             string search_file_name;
             cout << "Enter the ID of Scholarship to search: ";
             cin >> search_file_name;
@@ -270,11 +269,17 @@ int main()
             {
                 cout << "Does not exist" << endl;
             }
+
+            auto stop = chrono::high_resolution_clock::now();
+
+            auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+
+            cout << "Time taken to search file: " << duration.count() << " microseconds." << endl;
         }
-        else if (optionNumber == 5)
+        else if (optionNumber == "5")
         {
         }
-        else if (optionNumber == 6)
+        else if (optionNumber == "6")
         {
             auto start = chrono::high_resolution_clock::now();
 
@@ -287,7 +292,11 @@ int main()
 
             cout << "Time taken to display: " << duration.count() << " microseconds." << endl;
         }
-        else if (optionNumber == 7)
+        else if (optionNumber == "7")
+        {
+            break;
+        }
+        else if (optionNumber == "dev")
         {
             break;
         }

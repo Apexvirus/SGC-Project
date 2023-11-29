@@ -35,6 +35,37 @@ void create()
          << amount << ", "
          << link_to_regiter
          << "\n";
+    cout << "Scholarship/Grant created successfully, Restart program to update collection" << endl;
+}
+
+void delete_file(const string& fileName) {
+    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\" + fileName;  // Use backslash for Windows path
+
+    if (DeleteFile(filePath.c_str())) {
+        cout << "File deleted: " << fileName << endl;
+    } else {
+        // Handle the error if deleting the file fails
+        DWORD error = GetLastError();
+        cerr << "Error " << error << ": Unable to delete file" << endl;   
+    }
+    cout << "Scholarship/Grant Deleted successfully, Restart program to update collection" << endl;
+
+}
+void Read_File(const string file_name)
+{
+    
+    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\" + file_name;  // Use backslash for Windows path
+  
+    // File pointer 
+    fstream fin; 
+    string line,temp;
+  
+    // Open an existing file 
+    fin.open(filePath, ios::in);
+    while(fin){
+        getline(fin,line);
+        cout<<line<<endl;
+    }
 }
 
 class FileNode
@@ -177,7 +208,7 @@ public:
         {
             for (const auto &file : node->keys)
             {
-                cout << file.file_name <<" "<< file.size<<" size"<<endl;
+                cout << file.file_name <<" Size:"<< file.size<<endl;
             }
 
             if (!node->leaf)
@@ -233,12 +264,12 @@ int main()
     btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\test");
 
     string optionNumber;
-    cout << "~~  B-tree File System (Btrfs) Simulation ~~" << endl;
+    cout << "~~  Scholarship and Grant Collection (SGC)  ~~" << endl;
     while (1)
     {
         cout << "\n\n````````` The Main Menu `````````" << endl;
         cout << "---------------------------------" << endl;
-        cout << "1.Add a new scholarship \n2.Delete a Scholarship \n3.Modify \n4.Find a scholarship \n5.Sort scholarships \n6.List Files \n7.Exit\n";
+        cout << "1.Add a new scholarship \n2.Delete a Scholarship \n3.Modify \n4.Find a scholarship \n5.List Files \n6.Exit\n";
         cout << "---------------------------------" << endl;
         cout << "\nEnter The Option Number: " << endl;
         cin >> optionNumber;
@@ -250,16 +281,30 @@ int main()
         }
         else if (optionNumber == "2")
         {
+            string file_to_delete;
+            cout << "Enter the ID of Scholarship to search: ";
+            cin >> file_to_delete;
+            if (btree.searchFile(file_to_delete))
+            {
+                delete_file(file_to_delete);
+            }
+            else
+            {
+                cout << "Does not exist" << endl;
+            }
+
+
         }
         else if (optionNumber == "3")
         {
+
         }
         else if (optionNumber == "4")
         {
-            auto start = chrono::high_resolution_clock::now();
             string search_file_name;
             cout << "Enter the ID of Scholarship to search: ";
             cin >> search_file_name;
+            auto start = chrono::high_resolution_clock::now();
 
             if (btree.searchFile(search_file_name))
             {
@@ -269,30 +314,19 @@ int main()
             {
                 cout << "Does not exist" << endl;
             }
-
             auto stop = chrono::high_resolution_clock::now();
 
             auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+            Read_File(search_file_name);
 
             cout << "Time taken to search file: " << duration.count() << " microseconds." << endl;
         }
         else if (optionNumber == "5")
         {
-        }
-        else if (optionNumber == "6")
-        {
-            auto start = chrono::high_resolution_clock::now();
-
             cout << "File names in B-tree:" << endl;
             btree.displayFileNames(btree.root);
-
-            auto stop = chrono::high_resolution_clock::now();
-
-            auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-
-            cout << "Time taken to display: " << duration.count() << " microseconds." << endl;
         }
-        else if (optionNumber == "7")
+        else if (optionNumber == "6")
         {
             break;
         }

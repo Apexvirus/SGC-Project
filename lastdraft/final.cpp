@@ -297,7 +297,18 @@ int main()
         }
         else if (optionNumber == "3")
         {
-
+            string mod_file_name;
+            cout << "Enter the ID of Scholarship to search: ";
+            cin >> mod_file_name;
+            if (btree.searchFile(mod_file_name))
+            {
+                delete_file(mod_file_name);
+                create();
+            }
+            else
+            {
+                cout << "Does not exist" << endl;
+            }
         }
         else if (optionNumber == "4")
         {

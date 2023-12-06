@@ -17,7 +17,7 @@ void create()
 
     cout << "Enter the ID" << endl;
     cin >> ID;
-    string fname= "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\";
+    string fname= "F:\\University\\Semester 3\\DSA\\SGC Project\\collection\\";
     fname += "0"+to_string(ID);
     fname += ".csv";
     fout.open(fname, ios::out | ios::app);
@@ -35,32 +35,26 @@ void create()
          << amount << ", "
          << link_to_regiter
          << "\n";
-    cout << "Scholarship/Grant created successfully, Restart program to update collection" << endl;
 }
 
 void delete_file(const string& fileName) {
-    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\" + fileName;  // Use backslash for Windows path
+    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\collection\\" + fileName;  
 
     if (DeleteFile(filePath.c_str())) {
         cout << "File deleted: " << fileName << endl;
     } else {
-        // Handle the error if deleting the file fails
         DWORD error = GetLastError();
         cerr << "Error " << error << ": Unable to delete file" << endl;   
     }
-    cout << "Scholarship/Grant Deleted successfully, Restart program to update collection" << endl;
 
 }
 void Read_File(const string file_name)
 {
-    
-    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\test\\" + file_name;  // Use backslash for Windows path
-  
-    // File pointer 
+    string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\collection\\"+file_name;  // Use backslash for Windows path
+   
     fstream fin; 
     string line,temp;
   
-    // Open an existing file 
     fin.open(filePath, ios::in);
     while(fin){
         getline(fin,line);
@@ -72,7 +66,7 @@ class FileNode
 {
 public:
     string file_name;
-    int size; // You may add other file attributes as needed
+    int size; 
     time_t created_at;
 
     FileNode(string name, int s, time_t created) : file_name(name), size(s), created_at(created) {}
@@ -188,14 +182,14 @@ public:
         {
             if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
             {
-                continue; // Skip directories
+                continue; // Skip folders
             }
 
             ostringstream oss;
             oss << setw(3) << setfill('0') << fileNumber++;
             string fileName = oss.str() + ".csv";
 
-            FileNode newFile(fileName, sizeof(fileName), 0); // Size and created_at are not specified in this example
+            FileNode newFile(fileName, sizeof(fileName), 0); 
             insert(newFile);
 
         } while (FindNextFile(hFind, &findFileData) != 0);
@@ -224,7 +218,6 @@ public:
     {
         if (node != nullptr)
         {
-            // Search in the current node
             for (const auto &file : node->keys)
             {
                 if (file.file_name == file_name)
@@ -234,7 +227,6 @@ public:
                 }
             }
 
-            // Recursively search in the children
             if (!node->leaf)
             {
                 for (auto child : node->children)
@@ -250,43 +242,62 @@ public:
         return false;
     }
 
-    bool searchFile(const string &file_name)
+    bool searchFile(string &file_name)
     {
+        file_name ="0"+file_name+".csv";
         return searchFile(file_name, root);
     }
 };
 
 int main()
 {
+    cout<<"		()()()()  ()()()  ()    ()   ()()   ()       ()()    ()()   ()()()() ()    () ()()()() ()()() "<<endl<<
+        "		()       ()       ()    () ()    () ()     ()    () ()   () ()       ()    ()    ()    ()   ()"<<endl<<
+        "		()()()() ()       ()()()() ()    () ()     ()()()() ()()()  ()()()() ()()()()    ()    ()()() "<<endl<<
+        "		      () ()       ()    () ()    () ()     ()    () ()  ()        () ()    ()    ()    ()     "<<endl<<
+        "		()()()()  ()()()  ()    ()   ()()   ()()() ()    () ()   () ()()()() ()    () ()()()() ()     "<<endl<<endl<<
+        "		          ()()()     ()()     ()()    ()    () ()()()()        ()()   ()()()  ()()()  "<<endl<<
+        "		         ()         ()   () ()    () () ()  ()    ()         ()    () ()   () ()   () "<<endl<<
+        "		         ()  ()()() ()()()  ()()()() ()  () ()    ()         ()()()() ()()()  ()()()  "<<endl<<
+        "		         ()  ()  () ()  ()  ()    () ()   ()()    ()         ()    () ()      ()      "<<endl<<
+        "		          ()()   () ()   () ()    () ()    ()     ()         ()    () ()      ()      "<<endl<<
+        "\n\n\t\t\tGROUP MEMBERS:"<<
+        "\n\n\t\t\tAsghar Ali      (22k-4415)"<<
+        "\n\n\t\t\tAbdullah Shafiq (22k-4489)"<<
+        "\n\n\t\t\tMuhammad Bilal  (22k-4242)"<<endl;
+    
     BTree btree(8);
 
     // Populating B-tree from a Windows folder
-    btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\test");
+    btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\collection");
 
     string optionNumber;
-    cout << "~~  Scholarship and Grant Collection (SGC)  ~~" << endl;
     while (1)
     {
-        cout << "\n\n````````` The Main Menu `````````" << endl;
-        cout << "---------------------------------" << endl;
-        cout << "1.Add a new scholarship \n2.Delete a Scholarship \n3.Modify \n4.Find a scholarship \n5.List Files \n6.Exit\n";
-        cout << "---------------------------------" << endl;
-        cout << "\nEnter The Option Number: " << endl;
+        cout << "\n\n\t\t\t````````` The Main Menu `````````" << endl;
+        cout << "\t\t\t---------------------------------" << endl;
+        cout << "\t\t\t1.Add a new scholarship \n\t\t\t2.Delete a Scholarship \n\t\t\t3.Modify \n\t\t\t4.Find a scholarship \n\t\t\t5.List Files \n\t\t\t6.Exit\n";
+        cout << "\t\t\t---------------------------------" << endl;
+        cout << "\n\t\t\tEnter The Option Number: ";
         cin >> optionNumber;
         cout << endl;
 
         if (optionNumber == "1")
         {
             create();
+            cout << "Scholarship/Grant created successfully, Restart program to update collection" << endl;
+
         }
         else if (optionNumber == "2")
         {
             string file_to_delete;
-            cout << "Enter the ID of Scholarship to search: ";
+            cout << "Enter the ID of Scholarship to search(i.e 35): ";
             cin >> file_to_delete;
             if (btree.searchFile(file_to_delete))
             {
                 delete_file(file_to_delete);
+                cout << "Scholarship/Grant Deleted successfully, Restart program to update collection" << endl;
+
             }
             else
             {
@@ -298,7 +309,7 @@ int main()
         else if (optionNumber == "3")
         {
             string mod_file_name;
-            cout << "Enter the ID of Scholarship to search: ";
+            cout << "Enter the ID of Scholarship to search (i.e 26): ";
             cin >> mod_file_name;
             if (btree.searchFile(mod_file_name))
             {
@@ -313,7 +324,7 @@ int main()
         else if (optionNumber == "4")
         {
             string search_file_name;
-            cout << "Enter the ID of Scholarship to search: ";
+            cout << "Enter the ID of Scholarship to search (i.e 18): ";
             cin >> search_file_name;
             auto start = chrono::high_resolution_clock::now();
 
@@ -328,9 +339,11 @@ int main()
             auto stop = chrono::high_resolution_clock::now();
 
             auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+            
             Read_File(search_file_name);
-
+            
             cout << "Time taken to search file: " << duration.count() << " microseconds." << endl;
+
         }
         else if (optionNumber == "5")
         {

@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <iomanip>
 #include <chrono>
+#define maxdeg 8
+#define entries 100
 
 using namespace std;
 void create()
@@ -356,7 +358,82 @@ int main()
         }
         else if (optionNumber == "dev")
         {
-            break;
+            string op2;
+            while(1){
+                cout << "\n\n\t\t\t````````` The DEV Menu `````````" << endl;
+                cout << "\t\t\t---------------------------------" << endl;
+                cout << "\t\t\t1.Compare Linear and BTree Search Time \n\t\t\t2.Details of Data Structure \n\t\t\t3.Exit\n";
+                cout << "\t\t\t---------------------------------" << endl;
+                cout << "\n\t\t\tEnter The Option Number: ";
+                cin >> op2;
+                cout << endl;
+                if(op2=="1"){
+                    
+                    vector<string> linearcol(entries,"");
+                    string file;
+                    for(int i=0 ; i<51 ; i++){
+                        file = "0"+to_string(i)+".csv";
+                        linearcol.push_back(file);
+                    } 
+                    string search_file_name;
+                    cout << "Enter the ID of Scholarship to search (i.e 18): ";
+                    cin >> search_file_name;
+                    auto start = chrono::high_resolution_clock::now();
+
+                    if (btree.searchFile(search_file_name))
+                    {
+                        cout << "found!" << endl;
+                    }
+                    else
+                    {
+                        cout << "Does not exist" << endl;
+                    }
+                    auto stop = chrono::high_resolution_clock::now();
+
+                    auto duration_bs = chrono::duration_cast<chrono::microseconds>(stop - start);
+                    
+                    cout << "Time taken to search file by Binary Search: " << duration_bs.count() << " microseconds." << endl;
+
+                    start = chrono::high_resolution_clock::now();
+                    
+                    for(string f: linearcol){
+                        if(f==search_file_name){
+                            cout<<search_file_name<<" Found!"<<endl;
+                        }
+                    }
+                    cout<<"Search Complete"<<endl;
+
+                    stop = chrono::high_resolution_clock::now();
+
+                    auto duration_ls = chrono::duration_cast<chrono::microseconds>(stop - start);
+
+                    cout << "Time taken to search file by linear Search: " << duration_ls.count() << " microseconds." << endl;
+
+                }
+                else if(op2=="2")
+                {
+                    cout<<"BTREE"<<endl<<
+                    "Time complexities:"<<endl<<
+                    "\n1. Search O(log n)"<<
+                    "\n1. Insert O(log n)"<<
+                    "\n3. Delete O(log n)"<<endl;
+                    cout<<"Array as Vector"<<endl<<
+                    "Time complexities:"<<endl<<
+                    "\n1. Search O(n)"<<
+                    "\n2. Insert at end O(1)"<<
+                    "\n3. Insert at non-end O(n^2)"<<
+                    "\n4. Delete at non-end O(n^2)";
+                }
+                else if(op2=="3")
+                {
+                    break;
+                }
+                else
+                {
+                    cout << "Invalid Input.! Please Try Again." << endl;
+                }
+
+            }
         }
         else
         {

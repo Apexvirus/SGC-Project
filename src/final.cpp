@@ -15,7 +15,7 @@ void create()
     fstream fout;
     int i, ID;
     string name, type, area, link_to_regiter;
-    double amount;
+    string amount;
 
     cout << "Enter the ID" << endl;
     cin >> ID;
@@ -34,9 +34,9 @@ void create()
     fout << ID << ", "
          << string(name) << ", "
          << string(type) << ", "
-         << area << ", "
-         << amount << ", "
-         << link_to_regiter
+         << string(area) << ", "
+         << string(amount) << ", "
+         << string(link_to_regiter)
          << "\n";
 }
 
@@ -148,8 +148,6 @@ public:
         z->keys = vector<FileNode>(y->keys.begin() + degree, y->keys.end());
         y->keys = vector<FileNode>(y->keys.begin(), y->keys.begin() + degree - 1);
     }
-
-
 
     void insert(const FileNode &file_node)
     {

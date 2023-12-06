@@ -26,13 +26,14 @@ void create()
     // Read the input
 
     cout << "Enter the details of Scholarship/Grant:"
-         << " name, Type, field, amount and Link to registration" << endl;
+         << " name(string), Type(string), field(string), amount(int) and Link to registration(string)" << endl;
     cin >> name >> type >> area >> amount >> link_to_regiter;
 
     // Insert the data to file
+    fout<<"ID , Province , Category ,Field , Amount , Website"<<endl;
     fout << ID << ", "
-         << name << ", "
-         << type << ", "
+         << string(name) << ", "
+         << string(type) << ", "
          << area << ", "
          << amount << ", "
          << link_to_regiter
@@ -42,7 +43,7 @@ void create()
 void delete_file(const string& fileName) {
     string filePath = "F:\\University\\Semester 3\\DSA\\SGC Project\\collection\\" + fileName;  
 
-    if (DeleteFile(filePath.c_str())) {
+    if (DeleteFileA(filePath.c_str())) {
         cout << "File deleted: " << fileName << endl;
     } else {
         DWORD error = GetLastError();
@@ -69,9 +70,9 @@ class FileNode
 public:
     string file_name;
     int size; 
-    time_t created_at;
+    time_t creation;
 
-    FileNode(string name, int s, time_t created) : file_name(name), size(s), created_at(created) {}
+    FileNode(string name, int s, time_t created) : file_name(name), size(s), creation(created) {}
 };
 
 class BTreeNode
@@ -97,6 +98,13 @@ class BTree
 public:
     BTreeNode *root;
     int degree;
+    BTree(int deg) : root(nullptr), degree(deg) {}
+    
+    
+    ~BTree()
+    {
+        delete root;
+    }
 
     void insertNonFull(BTreeNode *x, const FileNode &file_node)
     {
@@ -105,7 +113,7 @@ public:
         if (x->leaf)
         {
             x->keys.push_back(FileNode("", 0, 0)); // Placeholder for the new key
-            while (i >= 0 && file_node.created_at < x->keys[i].created_at)
+            while (i >= 0 && file_node.file_name < x->keys[i].file_name)
             {
                 x->keys[i + 1] = x->keys[i];
                 i--;
@@ -114,7 +122,7 @@ public:
         }
         else
         {
-            while (i >= 0 && file_node.created_at < x->keys[i].created_at)
+            while (i >= 0 && file_node.file_name < x->keys[i].file_name)
             {
                 i--;
             }
@@ -122,7 +130,7 @@ public:
             if (x->children[i]->keys.size() == (2 * degree) - 1)
             {
                 splitChild(x, i);
-                if (file_node.created_at > x->keys[i].created_at)
+                if (file_node.file_name > x->keys[i].file_name)
                 {
                     i++;
                 }
@@ -141,12 +149,7 @@ public:
         y->keys = vector<FileNode>(y->keys.begin(), y->keys.begin() + degree - 1);
     }
 
-    BTree(int deg) : root(nullptr), degree(deg) {}
 
-    ~BTree()
-    {
-        delete root;
-    }
 
     void insert(const FileNode &file_node)
     {
@@ -170,7 +173,7 @@ public:
     void populateFromFolder(const string &folderPath)
     {
         WIN32_FIND_DATA findFileData;
-        HANDLE hFind = FindFirstFile((folderPath + "\\*").c_str(), &findFileData);
+        HANDLE hFind = FindFirstFileA((folderPath + "\\*").c_str(), &findFileData);
 
         if (hFind == INVALID_HANDLE_VALUE)
         {
@@ -191,7 +194,7 @@ public:
             oss << setw(3) << setfill('0') << fileNumber++;
             string fileName = oss.str() + ".csv";
 
-            FileNode newFile(fileName, sizeof(fileName), 0); 
+            FileNode newFile(fileName, sizeof(fileName),0); 
             insert(newFile);
 
         } while (FindNextFile(hFind, &findFileData) != 0);
@@ -268,7 +271,7 @@ int main()
         "\n\n\t\t\tAbdullah Shafiq (22k-4489)"<<
         "\n\n\t\t\tMuhammad Bilal  (22k-4242)"<<endl;
     
-    BTree btree(8);
+    BTree btree(maxdeg);
 
     // Populating B-tree from a Windows folder
     btree.populateFromFolder("F:\\University\\Semester 3\\DSA\\SGC Project\\collection");
